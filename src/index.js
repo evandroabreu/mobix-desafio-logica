@@ -1,3 +1,9 @@
+const readline = require("readline");
+const input = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 function drawFilledHourglass(n) {
     console.log('Preparing to draw a dimensional filled hourglass of ' + n + ' Lines');
     let len_space_between = 0
@@ -121,16 +127,13 @@ function drawHourglass(n, fill = 'N') {
         drawUnFilledHourglass(n);
 }
 
-
-const readline = require("readline");
-const input = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
 input.question("Informe o parâmetro de desenho da ampulheta: ", function (n) {
-    if (n < 20) {
+    if (!Number.isInteger(parseInt(n))) {
+        console.log('[ERRO] O parâmetro de desenho deve ser um número inteiro');
+        input.close();
+    } else if (n < 20) {
         console.log('[ERRO] O parâmetro de desenho deve ser ou igual a 20');
+        input.close();
     } else {
         input.question("Deseja exibir a ampulheta preenchida [S,N]?", function (fill) {
             drawHourglass(n, fill);
